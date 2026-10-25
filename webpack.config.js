@@ -1,50 +1,48 @@
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: "production",
 
-    entry: "./src/index.js",
+  entry: "./src/index.js",
 
-    output: {
-        path: path.resolve(__dirname, "build"),
-        filename: "bundle.js",
-        clean: true
-    },
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js",
+    publicPath: "/p-14/",
+    clean: true,
+  },
 
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-
-                use: {
-                    loader: "babel-loader"
-                }
-            }
-        ]
-    },
-
-    resolve: {
-        extensions: [".js", ".jsx"]
-    },
-
-    plugins: [
-
-        new HtmlWebpackPlugin({
-            template: "./public/index.html"
-        })
-
-    ],
-
-    devServer: {
-
-        static: {
-            directory: path.join(__dirname, "public")
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
         },
+      },
+    ],
+  },
 
-        port: 3000,
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
 
-        open: true
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      filename: "index.html",
+    }),
+  ],
 
-    }
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+  },
 };
