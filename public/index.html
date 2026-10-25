@@ -1,21 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-<head>
-    <meta charset="UTF-8">
+module.exports = {
+  entry: "./src/index.js",
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js",
+    publicPath: "/p-14/",
+    clean: true,
+  },
 
-    <title>React useEffect Practical</title>
-</head>
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
 
-<body>
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
 
-    <div id="root"></div>
-
-</body>
-
-</html>
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      filename: "index.html",
+    }),
+  ],
+};
